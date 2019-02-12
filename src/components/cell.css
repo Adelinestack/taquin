@@ -1,0 +1,7 @@
+.cell {
+  position: absolute;
+  background: url('http://pngimg.com/uploads/tennis/tennis_PNG10415.png');
+  width: 100px;
+  height: 100px;
+  border: 2px solid #fff;
+}
