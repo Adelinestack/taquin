@@ -1,20 +1,37 @@
 import React, { Component } from 'react';
 import Gameboard from './Gameboard';
+import EndGame from './EndGame';
+import { PLAY, END } from '../utils/constantes';
 import './App.css';
 
-class App extends Component {
+export default class App extends Component {
+  state = { gameState: PLAY };
+
+  playGame = () => {
+    this.setState({
+      gameState: PLAY,
+    });
+  };
+  endGame = () => {
+    this.setState({
+      gameState: END,
+    });
+  };
+
   render() {
+    const gameStateComponents = {
+      PLAY: <Gameboard endGame={this.endGame.bind(this)} />,
+      END: <EndGame playGame={this.playGame.bind(this)} />,
+    };
     return (
       <div className="App">
         <header className="App-header">
           <h1>TAQUIN</h1>
         </header>
         <main>
-          <Gameboard />
+          <div className="App">{gameStateComponents[this.state.gameState]}</div>
         </main>
       </div>
     );
   }
 }
-
-export default App;

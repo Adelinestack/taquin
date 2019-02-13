@@ -1,25 +1,9 @@
 import React, { Component } from 'react';
 import Cell from './Cell';
 import './gameboard.css';
+import { solution } from '../utils/constantes';
 import _ from 'lodash';
 
-const solution = [
-  { posX: 0, posY: 0 },
-  { posX: 0, posY: 1 },
-  { posX: 0, posY: 2 },
-  //{ posX: 0, posY: 3 },
-  { posX: 1, posY: 0 },
-  { posX: 1, posY: 2 },
-  //{ posX: 1, posY: 3 },
-  { posX: 2, posY: 0 },
-  { posX: 2, posY: 1 },
-  { posX: 2, posY: 2 },
-  //{ posX: 2, posY: 3 },
-  //   { posX: 3, posY: 0 },
-  //   { posX: 3, posY: 1 },
-  //   { posX: 3, posY: 2 },
-  //   { posX: 3, posY: 3 },
-];
 const blankCellOrigine = { blankCellPosX: 1, blankCellPosY: 1 };
 
 class Gameboard extends Component {
@@ -39,15 +23,19 @@ class Gameboard extends Component {
         posX: blankCell.blankCellPosX,
         posY: blankCell.blankCellPosY,
       };
-      const newCurrentPos = currentPos;
-      newCurrentPos[cellIndex] = newCellPos;
+
+      const firstCurrentPos = currentPos.slice(0, cellIndex);
+      const lastCurrentPos = currentPos.slice(cellIndex + 1);
+      const newCurrentPos = [...firstCurrentPos, newCellPos, ...lastCurrentPos];
 
       this.setState({
         currentPos: newCurrentPos,
         blankCell: { blankCellPosX: x, blankCellPosY: y },
       });
 
-      console.log(this.isWinner());
+      if (this.isWinner()) {
+        this.props.endGame();
+      }
     }
   }
 
@@ -80,6 +68,7 @@ class Gameboard extends Component {
           currentPos[index].posY,
           index
         )}
+        key={`${cell.posX}-${cell.posY}`}
       />
     ));
     return <div className="grid">{grid}</div>;

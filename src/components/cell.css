@@ -4,4 +4,5 @@
   width: 100px;
   height: 100px;
   border: 2px solid #fff;
+  transition: all 0.3s linear;
 }
