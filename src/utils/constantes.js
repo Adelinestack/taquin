@@ -18,3 +18,4 @@ export const solution = [
   { posX: 3, posY: 2 },
   { posX: 3, posY: 3 },
 ];
+export const blankCellOrigine = { blankCellPosX: 1, blankCellPosY: 1 };

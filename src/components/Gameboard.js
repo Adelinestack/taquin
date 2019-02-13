@@ -1,12 +1,15 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Cell from './Cell';
 import './gameboard.css';
-import { solution } from '../utils/constantes';
+import { solution, blankCellOrigine } from '../utils/constantes';
+import {
+  isBlankCellNear,
+  newCurrentPos,
+  isWinner,
+} from '../utils/gameboardFunctions';
 import _ from 'lodash';
 
-const blankCellOrigine = { blankCellPosX: 1, blankCellPosY: 1 };
-
-class Gameboard extends Component {
+export default class Gameboard extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,39 +21,16 @@ class Gameboard extends Component {
   onClick(x, y, cellIndex) {
     const { currentPos, blankCell } = this.state;
 
-    if (this.isBlankCellNear(x, y, blankCell)) {
-      const newCellPos = {
-        posX: blankCell.blankCellPosX,
-        posY: blankCell.blankCellPosY,
-      };
-
-      const firstCurrentPos = currentPos.slice(0, cellIndex);
-      const lastCurrentPos = currentPos.slice(cellIndex + 1);
-      const newCurrentPos = [...firstCurrentPos, newCellPos, ...lastCurrentPos];
-
+    if (isBlankCellNear(x, y, blankCell)) {
       this.setState({
-        currentPos: newCurrentPos,
+        currentPos: newCurrentPos(blankCell, currentPos, cellIndex),
         blankCell: { blankCellPosX: x, blankCellPosY: y },
       });
 
-      if (this.isWinner()) {
+      if (isWinner(solution, this.state.currentPos)) {
         this.props.endGame();
       }
     }
-  }
-
-  isWinner() {
-    return _.isEqual(solution, this.state.currentPos);
-  }
-
-  isBlankCellNear(x, y, blankCell) {
-    const { blankCellPosX, blankCellPosY } = blankCell;
-    return (
-      (blankCellPosX === x && blankCellPosY === y + 1) ||
-      (blankCellPosX === x && blankCellPosY === y - 1) ||
-      (blankCellPosX === x + 1 && blankCellPosY === y) ||
-      (blankCellPosX === x - 1 && blankCellPosY === y)
-    );
   }
 
   render() {
@@ -74,5 +54,3 @@ class Gameboard extends Component {
     return <div className="grid">{grid}</div>;
   }
 }
-
-export default Gameboard;

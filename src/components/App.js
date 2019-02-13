@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Gameboard from './Gameboard';
 import EndGame from './EndGame';
 import { PLAY, END } from '../utils/constantes';
 import './App.css';
 
-export default class App extends Component {
+export default class App extends PureComponent {
   state = { gameState: PLAY };
 
   playGame = () => {
