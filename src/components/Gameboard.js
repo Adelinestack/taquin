@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
-import Cell from './Cell';
-import './gameboard.css';
+
 import { solution, blankCellOrigine } from '../utils/constantes';
 import {
   isBlankCellNear,
@@ -8,6 +7,8 @@ import {
   isWinner,
 } from '../utils/gameboardFunctions';
 import _ from 'lodash';
+import './gameboard.css';
+import { Cell } from '../stylized/cellStyle';
 
 export default class Gameboard extends PureComponent {
   constructor(props) {
@@ -18,16 +19,16 @@ export default class Gameboard extends PureComponent {
     };
   }
 
-  onClick(x, y, cellIndex) {
+  onCellClick(posX, posY, cellIndex) {
     const { currentPos, blankCell } = this.state;
 
-    if (isBlankCellNear(x, y, blankCell)) {
+    if (isBlankCellNear(posX, posY, blankCell)) {
       this.setState({
         currentPos: newCurrentPos(blankCell, currentPos, cellIndex),
-        blankCell: { blankCellPosX: x, blankCellPosY: y },
+        blankCell: { blankCellPosX: posX, blankCellPosY: posY },
       });
 
-      if (isWinner(solution, this.state.currentPos)) {
+      if (isWinner(solution, currentPos)) {
         this.props.endGame();
       }
     }
@@ -42,7 +43,7 @@ export default class Gameboard extends PureComponent {
           posY: currentPos[index].posY,
         }}
         realPos={{ posX: cell.posX, posY: cell.posY }}
-        onClick={this.onClick.bind(
+        onClick={this.onCellClick.bind(
           this,
           currentPos[index].posX,
           currentPos[index].posY,
