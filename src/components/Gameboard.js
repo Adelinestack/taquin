@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-
 import { solution, blankCellOrigine } from '../utils/constantes';
 import {
   isBlankCellNear,
@@ -7,8 +6,8 @@ import {
   isWinner,
 } from '../utils/gameboardFunctions';
 import _ from 'lodash';
-import './gameboard.css';
 import { Cell } from '../stylized/cellStyle';
+import { Grid } from '../stylized/gameboardStyle';
 
 export default class Gameboard extends PureComponent {
   constructor(props) {
@@ -52,6 +51,6 @@ export default class Gameboard extends PureComponent {
         key={`${cell.posX}-${cell.posY}`}
       />
     ));
-    return <div className="grid">{grid}</div>;
+    return <Grid>{grid}</Grid>;
   }
 }

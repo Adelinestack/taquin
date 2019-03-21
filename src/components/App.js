@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import Gameboard from './Gameboard';
 import EndGame from './EndGame';
 import { PLAY, END } from '../utils/constantes';
-import './App.css';
+import { Main, Appcontainer } from '../stylized/appStyle';
 
 export default class App extends PureComponent {
   state = { gameState: PLAY };
@@ -24,14 +24,14 @@ export default class App extends PureComponent {
       END: <EndGame playGame={this.playGame.bind(this)} />,
     };
     return (
-      <div className="App">
+      <Appcontainer>
         <header className="App-header">
           <h1>TAQUIN</h1>
         </header>
-        <main>
+        <Main>
           <div className="App">{gameStateComponents[this.state.gameState]}</div>
-        </main>
-      </div>
+        </Main>
+      </Appcontainer>
     );
   }
 }
