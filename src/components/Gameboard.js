@@ -22,9 +22,15 @@ export default class Gameboard extends PureComponent {
     const { currentPos, blankCell } = this.state;
 
     if (isBlankCellNear(posX, posY, blankCell)) {
-      this.setState({
-        currentPos: newCurrentPos(blankCell, currentPos, cellIndex),
-        blankCell: { blankCellPosX: posX, blankCellPosY: posY },
+      this.setState(prevState => {
+        return {
+          currentPos: newCurrentPos(
+            prevState.blankCell,
+            prevState.currentPos,
+            cellIndex
+          ),
+          blankCell: { blankCellPosX: posX, blankCellPosY: posY },
+        };
       });
 
       if (isWinner(solution, currentPos)) {

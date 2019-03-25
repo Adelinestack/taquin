@@ -10,10 +10,14 @@ export const isBlankCellNear = (x, y, blankCell) => {
   );
 };
 
-export const newCurrentPos = (blankCell, currentPos, cellIndex) => {
+export const newCurrentPos = (
+  { blankCellPosX, blankCellPosY },
+  currentPos,
+  cellIndex
+) => {
   const newCellPos = {
-    posX: blankCell.blankCellPosX,
-    posY: blankCell.blankCellPosY,
+    posX: blankCellPosX,
+    posY: blankCellPosY,
   };
   const firstCurrentPos = currentPos.slice(0, cellIndex);
   const lastCurrentPos = currentPos.slice(cellIndex + 1);

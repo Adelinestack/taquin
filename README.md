@@ -1,5 +1,17 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+---
+
+## Project description
+
+---
+
+It's a taquin game. You have to moove cells to rebuild image.
+
+### `Technologies used`
+
+ReactJS, Styled-components
+
 ## Available Scripts
 
 In the project directory, you can run:

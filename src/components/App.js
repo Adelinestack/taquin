@@ -20,8 +20,8 @@ export default class App extends PureComponent {
 
   render() {
     const gameStateComponents = {
-      PLAY: <Gameboard endGame={this.endGame.bind(this)} />,
-      END: <EndGame playGame={this.playGame.bind(this)} />,
+      PLAY: <Gameboard endGame={this.endGame} />,
+      END: <EndGame playGame={this.playGame} />,
     };
     return (
       <Appcontainer>
