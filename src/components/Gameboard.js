@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react';
-import { solution, blankCellOrigine } from '../utils/constantes';
+import { blankCellOrigine } from '../utils/constantes';
 import {
   isBlankCellNear,
   newCurrentPos,
   isWinner,
+  SOLUTIONS,
 } from '../utils/gameboardFunctions';
 import _ from 'lodash';
 import { Cell } from '../stylized/cellStyle';
@@ -13,7 +14,7 @@ export default class Gameboard extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      currentPos: _.shuffle(solution),
+      currentPos: _.shuffle(SOLUTIONS),
       blankCell: blankCellOrigine,
     };
   }
@@ -33,7 +34,7 @@ export default class Gameboard extends PureComponent {
         };
       });
 
-      if (isWinner(solution, currentPos)) {
+      if (isWinner(SOLUTIONS, currentPos)) {
         this.props.endGame();
       }
     }
@@ -41,7 +42,7 @@ export default class Gameboard extends PureComponent {
 
   render() {
     const { currentPos } = this.state;
-    const grid = solution.map((cell, index) => (
+    const grid = SOLUTIONS.map((cell, index) => (
       <Cell
         currentPos={{
           posX: currentPos[index].posX,

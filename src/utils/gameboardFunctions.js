@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { LEVEL } from './constantes';
 
 export const isBlankCellNear = (x, y, blankCell) => {
   const { blankCellPosX, blankCellPosY } = blankCell;
@@ -26,3 +27,33 @@ export const newCurrentPos = (
 
 export const isWinner = (solution, currentPos) =>
   _.isEqual(solution, currentPos);
+
+export const column = (level, row, col = 0, cols = []) => {
+  if (col === level - 1) {
+    return [
+      ...cols,
+      {
+        posX: row,
+        posY: col,
+      },
+    ];
+  } else if (row === 1 && col == 1) {
+    return column(level, row, col + 1, cols);
+  }
+  return column(level, row, col + 1, [
+    ...cols,
+    {
+      posX: row,
+      posY: col,
+    },
+  ]);
+};
+
+export const createSolution = (level, row = 0, rows = []) => {
+  if (row === level - 1) {
+    return [...rows, ...column(level, row)];
+  }
+  return createSolution(level, row + 1, [...rows, ...column(level, row)]);
+};
+
+export const SOLUTIONS = createSolution(LEVEL);

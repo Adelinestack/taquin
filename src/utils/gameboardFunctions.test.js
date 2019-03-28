@@ -1,4 +1,8 @@
-import { isBlankCellNear, newCurrentPos } from './gameboardFunctions';
+import {
+  isBlankCellNear,
+  newCurrentPos,
+  createSolution,
+} from './gameboardFunctions';
 
 describe('Test isBlankCellNear', () => {
   test(`x=1, y=2 et blankCell= {blankCellPosX: 1,blankCellPosY: 1} return true`, () => {
@@ -31,5 +35,29 @@ describe('Test newCurrentPos', () => {
 
   test(`blankCell, currentPos, cellIndex return newPos`, () => {
     expect(newCurrentPos(blankCell, currentPos, cellIndex)).toEqual(newPos);
+  });
+});
+
+describe('Test solutions creation', () => {
+  const solutions = [
+    { posX: 0, posY: 0 },
+    { posX: 0, posY: 1 },
+    { posX: 0, posY: 2 },
+    { posX: 0, posY: 3 },
+    { posX: 1, posY: 0 },
+    { posX: 1, posY: 2 },
+    { posX: 1, posY: 3 },
+    { posX: 2, posY: 0 },
+    { posX: 2, posY: 1 },
+    { posX: 2, posY: 2 },
+    { posX: 2, posY: 3 },
+    { posX: 3, posY: 0 },
+    { posX: 3, posY: 1 },
+    { posX: 3, posY: 2 },
+    { posX: 3, posY: 3 },
+  ];
+
+  test('createSolution should create the array of solutions without the blank cell', () => {
+    expect(createSolution(4)).toEqual(solutions);
   });
 });
